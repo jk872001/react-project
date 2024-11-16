@@ -29,7 +29,7 @@ import { Link, Navigate, NavLink, Outlet } from 'react-router-dom';
 
 const DashboardLayout = () => {
     const { token, setToken } = useTokenStore((state) => state);
-    const { logout, isAuthenticated } = useAuth0();
+    const { user, logout, isAuthenticated } = useAuth0();
     // if (token === '') {
     //     return <Navigate to={'/auth/login'} replace />;
     // }
@@ -237,7 +237,7 @@ const DashboardLayout = () => {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                            <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>Settings</DropdownMenuItem>
                             <DropdownMenuItem>Support</DropdownMenuItem>
