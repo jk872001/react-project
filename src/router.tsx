@@ -6,6 +6,11 @@ import DashboardLayout from './layouts/DashboardLayout';
 import UsersPage from './pages/UsersPage';
 import AuthLayout from './layouts/AuthLayout';
 import CreateUser from './pages/CreateUser';
+import CustomersPage from './pages/CustomersPage';
+import CreateCustomer from './pages/CreateCustomer';
+import OfferingsPage from './pages/OfferingsPage';
+import DeliveriesPage from './pages/DeliveriesPage';
+import CheckinsPage from './pages/CheckinsPage';
 
 const router = createBrowserRouter([
     {
@@ -25,8 +30,28 @@ const router = createBrowserRouter([
                 element: <UsersPage />,
             },
             {
+                path: 'customers',
+                element: <CustomersPage />,
+            },
+            {
+                path: 'offerings',
+                element: <OfferingsPage />,
+            },
+            {
+                path: 'deliveries',
+                element: <DeliveriesPage />,
+            },
+            {
+                path: 'checkins',
+                element: <CheckinsPage />,
+            },
+            {
                 path: 'users/create',
                 element: <CreateUser />,
+            },
+            {
+                path: 'customers/create',
+                element: <CreateCustomer />,
             },
         ],
     },

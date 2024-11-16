@@ -25,9 +25,16 @@ export const register = async (data: { name: string; email: string; password: st
     api.post('/api/users/register', data);
 
 export const getUsers = async () => api.get('/users');
+export const getCustomers = async () => api.get('/customers');
 
 export const createUser = async (data: FormData) =>
     api.post('/users', data, {
+        // headers: {
+        //     'Content-Type': 'multipart/form-data',
+        // },
+    });
+export const createCustomer = async (data: FormData) =>
+    api.post('/customers', data, {
         // headers: {
         //     'Content-Type': 'multipart/form-data',
         // },

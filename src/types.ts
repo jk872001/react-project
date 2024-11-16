@@ -4,6 +4,7 @@ export interface Author {
 }
 
 export interface User {
+    id: ReactNode;
     _id: string;
     name: string;
     email: string;

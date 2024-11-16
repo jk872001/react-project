@@ -9,6 +9,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useAuth0 } from '@auth0/auth0-react';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import useTokenStore from '@/store';
@@ -28,15 +29,15 @@ import { Link, Navigate, NavLink, Outlet } from 'react-router-dom';
 
 const DashboardLayout = () => {
     const { token, setToken } = useTokenStore((state) => state);
-
+    const { logout, isAuthenticated } = useAuth0();
     // if (token === '') {
     //     return <Navigate to={'/auth/login'} replace />;
     // }
 
-    const logout = () => {
-        console.log('Logging out!');
-        setToken('');
-    };
+    // const logout = () => {
+    //     console.log('Logging out!');
+    //     setToken('');
+    // };
 
     return (
         <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] bg-white">
@@ -66,7 +67,7 @@ const DashboardLayout = () => {
                             </NavLink> */}
 
                             <NavLink
-                                to="/dashboard/users"
+                                to="/dashboard"
                                 className={({ isActive }) => {
                                     return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
                                         !isActive && 'bg-muted'
@@ -86,40 +87,40 @@ const DashboardLayout = () => {
                                 Users{' '}
                             </NavLink>
                             <NavLink
-                                to="/dashboard/users"
+                                to="/dashboard/customers"
                                 className={({ isActive }) => {
                                     return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
-                                        !isActive && 'bg-muted'
+                                        isActive && 'bg-muted'
                                     }`;
                                 }}>
                                 <Package className="h-4 w-4" />
                                 Customers{' '}
                             </NavLink>
                             <NavLink
-                                to="/dashboard/users"
+                                to="/dashboard/offerings"
                                 className={({ isActive }) => {
                                     return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
-                                        !isActive && 'bg-muted'
+                                        isActive && 'bg-muted'
                                     }`;
                                 }}>
                                 <Package className="h-4 w-4" />
                                 Offerings{' '}
                             </NavLink>
                             <NavLink
-                                to="/dashboard/users"
+                                to="/dashboard/deliveries"
                                 className={({ isActive }) => {
                                     return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
-                                        !isActive && 'bg-muted'
+                                        isActive && 'bg-muted'
                                     }`;
                                 }}>
                                 <Package className="h-4 w-4" />
                                 Deliveries{' '}
                             </NavLink>
                             <NavLink
-                                to="/dashboard/users"
+                                to="/dashboard/checkins"
                                 className={({ isActive }) => {
                                     return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
-                                        !isActive && 'bg-muted'
+                                        isActive && 'bg-muted'
                                     }`;
                                 }}>
                                 <Package className="h-4 w-4" />
