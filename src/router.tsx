@@ -9,8 +9,11 @@ import CreateUser from './pages/CreateUser';
 import CustomersPage from './pages/CustomersPage';
 import CreateCustomer from './pages/CreateCustomer';
 import OfferingsPage from './pages/OfferingsPage';
-import DeliveriesPage from './pages/DeliveriesPage';
+import DeliveriesPage from './pages/DeliveryPage';
 import CheckinsPage from './pages/CheckinsPage';
+import CreateOfferings from './pages/CreateOfferings';
+import DeliveryPage from './pages/DeliveryPage';
+import CreateDelivery from './pages/CreateDelivery';
 
 const router = createBrowserRouter([
     {
@@ -38,8 +41,8 @@ const router = createBrowserRouter([
                 element: <OfferingsPage />,
             },
             {
-                path: 'deliveries',
-                element: <DeliveriesPage />,
+                path: 'delivery',
+                element: <DeliveryPage />,
             },
             {
                 path: 'checkins',
@@ -52,6 +55,14 @@ const router = createBrowserRouter([
             {
                 path: 'customers/create',
                 element: <CreateCustomer />,
+            },
+            {
+                path: 'offerings/create',
+                element: <CreateOfferings />,
+            },
+            {
+                path: 'delivery/create',
+                element: <CreateDelivery />,
             },
         ],
     },

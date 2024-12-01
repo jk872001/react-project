@@ -25,6 +25,8 @@ export const register = async (data: { name: string; email: string; password: st
     api.post('/api/users/register', data);
 
 export const getUsers = async () => api.get('/users');
+export const getOfferings = async () => api.get('/offerings');
+export const getDeliveries = async () => api.get('/deliveries');
 export const getCustomers = async () => api.get('/customers');
 
 export const createUser = async (data: FormData) =>
@@ -35,6 +37,19 @@ export const createUser = async (data: FormData) =>
     });
 export const createCustomer = async (data: FormData) =>
     api.post('/customers', data, {
+        // headers: {
+        //     'Content-Type': 'multipart/form-data',
+        // },
+    });
+
+export const createOffering = async (data: FormData) =>
+    api.post('/offerings', data, {
+        // headers: {
+        //     'Content-Type': 'multipart/form-data',
+        // },
+    });
+export const createDelivery = async (data: FormData) =>
+    api.post('/deliveries', data, {
         // headers: {
         //     'Content-Type': 'multipart/form-data',
         // },

@@ -1,18 +1,7 @@
-import { Badge } from "@/components/ui/badge";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -20,7 +9,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -32,20 +20,19 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Toaster } from "@/components/ui/toaster";
-import { getOfferings, getUsers } from "@/http/api";
+import { getDeliveries } from "@/http/api";
 import { capitalize, formatCreatedAt } from "@/lib/utils";
-import { User } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { CirclePlus, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const OfferingsPage = () => {
+const DeliveryPage = () => {
   // todo: add loading spinner, and error message
   // @ts-ignore
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["offerings"],
-    queryFn: getOfferings,
+    queryKey: ["deliveries"],
+    queryFn: getDeliveries,
     staleTime: 10000, // in Milli-seconds
   });
 
@@ -57,11 +44,11 @@ const OfferingsPage = () => {
       <Card>
         <CardHeader>
             <div className="flex justify-between">
-            <CardTitle>Offerings</CardTitle>
-          <Link to="/dashboard/offerings/create">
+            <CardTitle>Deliveries</CardTitle>
+          <Link to="/dashboard/delivery/create">
           <Button>
             <CirclePlus size={20} />
-            <span className="ml-2">Add Offering</span>
+            <span className="ml-2">Add delivery</span>
           </Button>
         </Link>
             </div>
@@ -72,13 +59,9 @@ const OfferingsPage = () => {
     <TableHeader>
         <TableRow>
             <TableHead>Name</TableHead>
-            {/* <TableHead>Org. Id</TableHead> */}
-            {/* <TableHead>Created At</TableHead> */}
-            <TableHead>Default Price</TableHead>
-            <TableHead>Default Effort</TableHead>
-            <TableHead>Default Duration</TableHead>
-            <TableHead>Default Cost</TableHead>
-            <TableHead>Is Recurring</TableHead>
+            <TableHead>Price</TableHead>
+            <TableHead>Plan Start Date</TableHead>
+            <TableHead>Plan End Date</TableHead>
             <TableHead>
                 <span className="sr-only">Actions</span>
             </TableHead>
@@ -90,16 +73,12 @@ const OfferingsPage = () => {
             return (
                 <TableRow key={item.id}>
                     <TableCell className="font-medium">{capitalize(item.name)}</TableCell>
-                    {/* <TableCell className="font-medium">{item.org_id}</TableCell> */}
-                    {/* <TableCell className="font-medium">
-                        {formatCreatedAt(item.created_at)}
-                    </TableCell> */}
-                    <TableCell className="font-medium">{item.default_price}</TableCell>
-                    <TableCell className="font-medium">{item.default_effort}</TableCell>
-                    <TableCell className="font-medium">{item.default_duration}</TableCell>
-                    <TableCell className="font-medium">{item.default_cost}</TableCell>
+                    <TableCell className="font-medium">{item.effective_price}</TableCell>
                     <TableCell className="font-medium">
-                        {item.is_recurring ? "Yes" : "No"}
+                        {new Date(item.plan_startdate * 1000).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell className="font-medium">
+                        {new Date(item.plan_enddate * 1000).toLocaleDateString()}
                     </TableCell>
                     <TableCell>
                         <DropdownMenu>
@@ -126,6 +105,7 @@ const OfferingsPage = () => {
     </TableBody>
 </Table>
 
+
         </CardContent>
      
       </Card>
@@ -133,4 +113,4 @@ const OfferingsPage = () => {
   );
 };
 
-export default OfferingsPage;
+export default DeliveryPage;
