@@ -20,8 +20,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Toaster } from "@/components/ui/toaster";
-import { getDeliveries } from "@/http/api";
-import { capitalize, formatCreatedAt } from "@/lib/utils";
+import {getDeliveries } from "@/http/api";
+import { capitalize } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { CirclePlus, MoreHorizontal } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -35,7 +35,7 @@ const DeliveryPage = () => {
     queryFn: getDeliveries,
     staleTime: 10000, // in Milli-seconds
   });
-
+  
 
   return (
     <div>

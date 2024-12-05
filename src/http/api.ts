@@ -25,9 +25,16 @@ export const register = async (data: { name: string; email: string; password: st
     api.post('/api/users/register', data);
 
 export const getUsers = async () => api.get('/users');
-export const getOfferings = async () => api.get('/offerings');
 export const getDeliveries = async () => api.get('/deliveries');
-export const getCustomers = async () => api.get('/customers');
+export const getOfferings = async () => {
+    const response = await api.get('/offerings');
+    return response.data; // Only return the actual data
+  };
+  
+  export const getCustomers = async () => {
+    const response = await api.get('/customers');
+    return response.data; // Only return the actual data
+  };
 
 export const createUser = async (data: FormData) =>
     api.post('/users', data, {

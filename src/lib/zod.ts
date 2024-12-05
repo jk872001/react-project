@@ -27,16 +27,18 @@ export const OfferingFormSchema = z.object({
 
 export const DeliveryFormSchema = z.object({
     name: z.string().min(1, "Name is required"),  
-    customerId: z
-    .string()
-    .refine((value) => !isNaN(Number(value)) && Number(value) >= 0, {
-        message: "Default duration must be a non-negative number",
-    }),
-    offeringId: z
-    .string()
-    .refine((value) => !isNaN(Number(value)) && Number(value) >= 0, {
-        message: "Default duration must be a non-negative number",
-    }),  
+    // customerId: z
+    // .string()
+    // .refine((value) => !isNaN(Number(value)) && Number(value) >= 0, {
+    //     message: "Default duration must be a non-negative number",
+    // }),
+    // offeringId: z
+    // .string()
+    // .refine((value) => !isNaN(Number(value)) && Number(value) >= 0, {
+    //     message: "Default duration must be a non-negative number",
+    // }),  
+    customerId: z.string().min(1, "Customer Id is required"), 
+    offeringId: z.string().min(1, "Offering Id is required"), 
     planStartDate: z
         .string()
         .refine((value) => !isNaN(Date.parse(value)), {

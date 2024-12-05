@@ -18,9 +18,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useForm } from "react-hook-form";
-import { createDelivery } from "@/http/api";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createDelivery, getCustomers, getOfferings } from "@/http/api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { LoaderCircle } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
@@ -48,18 +49,28 @@ const CreateDelivery = () => {
     mutationFn: createDelivery,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["deliveries"] });
-      console.log("Delivery created successfully");
       navigate("/dashboard/delivery");
     },
     onError: (error: any) => {
       if (error.response?.status === 500) {
-        console.log("error");
         toast({
           title: "Uh oh! Something went wrong.",
           description: "There was a problem with your request.",
         });
       }
     },
+  });
+
+  const { data: customerData} = useQuery({
+    queryKey: ["customers"],
+    queryFn: getCustomers,
+    staleTime: 10000,
+  });
+
+  const { data: offeringData } = useQuery({
+    queryKey: ["offerings"],
+    queryFn: getOfferings,
+    staleTime: 10000,
   });
 
   function onSubmit(values: z.infer<typeof DeliveryFormSchema>) {
@@ -79,7 +90,7 @@ const CreateDelivery = () => {
       <Toaster />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <Card className="">
+          <Card>
             <CardHeader>
               <CardTitle>Create a New Delivery</CardTitle>
               <CardDescription>
@@ -109,9 +120,23 @@ const CreateDelivery = () => {
                     name="customerId"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <FormLabel>Customer ID</FormLabel>
+                        <FormLabel>Customer</FormLabel>
                         <FormControl>
-                          <Input type="number" className="w-full" {...field} />
+                          <Select
+                            onValueChange={field.onChange}
+                            value={field.value}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select Customer" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {customerData?.map((customer:{id:string,name:string}) => (
+                                <SelectItem key={customer.id} value={customer.name}>
+                                  {customer.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -124,9 +149,23 @@ const CreateDelivery = () => {
                     name="offeringId"
                     render={({ field }) => (
                       <FormItem className="flex-1">
-                        <FormLabel>Offering ID</FormLabel>
+                        <FormLabel>Offering</FormLabel>
                         <FormControl>
-                          <Input type="number" className="w-full" {...field} />
+                          <Select
+                            onValueChange={field.onChange}
+                            value={field.value}
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select Offering" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {offeringData?.map((offering:{id:string,name:string}) => (
+                                <SelectItem key={offering.id} value={offering.name}>
+                                  {offering.name}
+                                </SelectItem>
+                              ))} 
+                            </SelectContent>
+                          </Select>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
