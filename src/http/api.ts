@@ -36,6 +36,12 @@ export const getOfferings = async () => {
     return response.data; // Only return the actual data
   };
 
+  export const getCheckins = async () => {
+
+    const response = await api.get('/weeklycheckins/7');
+    return response; // Only return the actual data
+  };
+
 export const createUser = async (data: FormData) =>
     api.post('/users', data, {
         // headers: {
