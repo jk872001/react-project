@@ -1,7 +1,7 @@
 
 const CheckinsPage = () => {
   return (
-    <div>CheckinsPage</div>
+    <div>CheckinsPage1</div>
   )
 }
 
