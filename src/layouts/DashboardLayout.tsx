@@ -27,6 +27,8 @@ import {
 } from 'lucide-react';
 import { Link, Navigate, NavLink, Outlet } from 'react-router-dom';
 
+const guid: string ="d5bc6480-2e3c-435e-734e-577cca22a263";
+
 const DashboardLayout = () => {
     const { token, setToken } = useTokenStore((state) => state);
     const { user, logout, isAuthenticated } = useAuth0();
@@ -117,7 +119,7 @@ const DashboardLayout = () => {
                                 Deliveries{' '}
                             </NavLink>
                             <NavLink
-                                to="/dashboard/checkins"
+                                to={`/dashboard/checkins/${guid}`}
                                 className={({ isActive }) => {
                                     return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
                                         isActive && 'bg-muted'

@@ -56,3 +56,22 @@ export const DeliveryFormSchema = z.object({
     }),
     
 });
+
+
+export const CheckinsFormSchema = z.object({
+    
+        effort: z.string()
+        .refine((value) => !isNaN(Number(value)) && Number(value) >= 0, {
+            message: "Effort must be a non-negative number",
+        }),
+        cost: z.string()
+        .refine((value) => !isNaN(Number(value)) && Number(value) >= 0, {
+            message: "Cost must be a non-negative number",
+        }),
+        confidence: z.string()
+        .refine((value) => !isNaN(Number(value)) && Number(value) >= 0, {
+            message: "Confidence must be a non-negative number",
+        }),
+        comment: z.string().min(1,"Comment is required")
+      
+})

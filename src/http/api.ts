@@ -36,10 +36,10 @@ export const getOfferings = async () => {
     return response.data; // Only return the actual data
   };
 
-  export const getCheckins = async () => {
+  export const getCheckins = async (guid:string) => {
 
-    const response = await api.get('/weeklycheckins/7');
-    return response; // Only return the actual data
+    const response = await api.get(`/weeklycheckins/${guid}`);
+    return response?.data; // Only return the actual data
   };
 
 export const createUser = async (data: FormData) =>
@@ -67,3 +67,10 @@ export const createDelivery = async (data: FormData) =>
         //     'Content-Type': 'multipart/form-data',
         // },
     });
+
+    export const createCheckins = async (data: FormData,guid:string) =>
+        api.put(`/weeklycheckins/${guid}`, data, {
+            // headers: {
+            //     'Content-Type': 'multipart/form-data',
+            // },
+        });
