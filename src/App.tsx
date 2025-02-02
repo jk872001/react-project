@@ -11,11 +11,12 @@ const App = () => {
     const queryClient = useQueryClient();
     const [hasCalledCreateUser, setHasCalledCreateUser] = useState(false);
 
+
     const mutation = useMutation({
         mutationFn: createUser,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["users"] });
-            console.log("User created successfully");
+            // console.log("User created successfully");
         },
         onError: (error: any) => {
             if (error.response?.status === 500) {
@@ -43,6 +44,7 @@ const App = () => {
     }
 
     if (!isAuthenticated) {
+        localStorage.setItem("redirect_url",window.location.pathname)
         loginWithRedirect();
         return null; // Prevent rendering during the redirect
     }

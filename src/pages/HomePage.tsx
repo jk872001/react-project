@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Activity, ArrowUpRight, CreditCard, DollarSign, Users } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -14,8 +14,19 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
+import { useEffect } from 'react';
 
 const HomePage = () => {
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        const redirectUrl = localStorage.getItem("redirect_url")
+            if(redirectUrl){
+                localStorage.removeItem("redirect_url")
+                navigate(redirectUrl)
+                }
+        },[])
+        
     return (
         <>
             <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
