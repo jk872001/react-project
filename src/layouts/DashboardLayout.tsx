@@ -11,8 +11,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Input } from '@/components/ui/input';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import useTokenStore from '@/store';
 import {
     Bell,
     CircleUser,
@@ -30,7 +28,7 @@ import { Link, Navigate, NavLink, Outlet } from 'react-router-dom';
 const guid: string ="d5bc6480-2e3c-435e-734e-577cca22a263";
 
 const DashboardLayout = () => {
-    const { token, setToken } = useTokenStore((state) => state);
+    // const { token, setToken } = useTokenStore((state) => state);
     const { user, logout, isAuthenticated } = useAuth0();
     // if (token === '') {
     //     return <Navigate to={'/auth/login'} replace />;

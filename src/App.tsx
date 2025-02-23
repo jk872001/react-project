@@ -5,13 +5,14 @@ import { createUser } from "./http/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "./hooks/use-toast";
 import { useEffect, useState } from "react";
+import useTokenStore from "./store";
 
 const App = () => {
-    const { isAuthenticated, loginWithRedirect, isLoading, user } = useAuth0();
+    const { isAuthenticated, loginWithRedirect, isLoading, user, getAccessTokenSilently  } = useAuth0();
     const queryClient = useQueryClient();
     const [hasCalledCreateUser, setHasCalledCreateUser] = useState(false);
-
-
+    const setToken = useTokenStore((state) => state.setToken);
+   
     const mutation = useMutation({
         mutationFn: createUser,
         onSuccess: () => {
@@ -37,7 +38,21 @@ const App = () => {
             mutation.mutate(formData);
             setHasCalledCreateUser(true); // Prevent further calls
         }
-    }, [isAuthenticated, user, hasCalledCreateUser, mutation]);
+        fetchToken();
+
+    }, [isAuthenticated, user, hasCalledCreateUser, mutation, getAccessTokenSilently]);
+
+    const fetchToken = async () => {
+        if (isAuthenticated) {
+            try {
+                const token = await getAccessTokenSilently();
+                setToken(token); // Store the token in Zustand
+                // console.log("Auth0 Access Token:", token);
+            } catch (error) {
+                console.error("Error fetching token:", error);
+            }
+        }
+    };
 
     if (isLoading) {
         return <div>Loading...</div>;
